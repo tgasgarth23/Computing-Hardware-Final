@@ -2,7 +2,6 @@ from feat import Detector
 
 class EmotionDetector:
     def __init__(self):
-        # Initialize the emotion detector with specified models
         self.detector = Detector(
             face_model="retinaface",
             landmark_model="mobilefacenet",
@@ -12,20 +11,14 @@ class EmotionDetector:
         )
 
     def detect_emotions(self, image_path):
-        # Detect emotions in the given image
         return self.detector.detect_image(image_path)
 
     def is_student_happy(self, image_path):
-        # Construct the full path to the image
-
-        # Get emotion predictions for the image
         user_emotions = self.detect_emotions(image_path).emotions
 
-        # Calculate the positive and negative factors
         positive_factor = user_emotions["happiness"] + user_emotions["surprise"]
         negative_factor = user_emotions["anger"] + user_emotions["disgust"] + user_emotions["sadness"]
 
-        # Determine if the student is happy
         return (positive_factor > negative_factor).bool()
 
 if __name__ == '__main__':

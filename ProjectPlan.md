@@ -32,7 +32,12 @@ Description: Manages camera operations. This includes initializing the camera, c
         Returns: Boolean - True if happy, False otherwise.
 
 7. data_manager.py
-Description: Handles data storage and retrieval. It saves feedback results along with time and menu item data to a CSV file and ensures proper handling of data formats.
+    Constructor:
+        params: EmotionDetector, csv_path
+    
+    process_data:
+        params: time_info, menu_item, emotion, image_path
+        saves info to csv
 
 8. utility.py
 Description: Includes utility functions used across the project, such as logging, error handling, and any other shared functionalities.
