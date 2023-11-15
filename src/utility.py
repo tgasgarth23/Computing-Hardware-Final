@@ -3,11 +3,6 @@ import shutil
 import datetime
 
 def delete_all_images(directory):
-    """
-    Deletes all files in the specified directory.
-    
-    :param directory: Path to the directory where files will be deleted.
-    """
     for filename in os.listdir(directory):
         file_path = os.path.join(directory, filename)
         try:

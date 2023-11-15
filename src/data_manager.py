@@ -27,17 +27,14 @@ if __name__ == "__main__":
     csv_path = 'test/data/csv/results.csv'
     data_manager = DataManager(detector=emotion_detector, csv_path=csv_path)
 
-    # Define the image paths
     image_paths = ['test/data/images/happy_student.png', 'test/data/images/unhappy_student.jpg']
-    menu_item = "Test Menu Item"  # Placeholder for menu_item
+    menu_item = "Test Menu Item" 
     image_paths = []
     for filename in os.listdir('test/data/images'):
         if filename.endswith(('.png', '.jpg', '.jpeg')):
             image_paths.append(os.path.join('test/data/images', filename))
 
-    # Process each image
     for image_path in image_paths:
-        # Use current time for time_info
         current_time = datetime.now()
         data_manager.process_data(image_path, current_time, menu_item)
 
