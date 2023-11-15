@@ -1,0 +1,25 @@
+.
+├── ProjectPlan.md
+├── README.md
+├── config.py
+├── contents_tree.txt
+├── data
+│   ├── csv
+│   └── images
+├── main.py
+├── src
+│   ├── button_handler.py
+│   ├── camera_manager.py
+│   ├── data_manager.py
+│   ├── emotion_detector.py
+│   ├── menu_display.py
+│   └── utility.py
+└── test
+    └── data
+        ├── csv
+        │   └── results.csv
+        └── images
+            ├── happy_student.png
+            └── unhappy_student.jpg
+
+9 directories, 14 files
