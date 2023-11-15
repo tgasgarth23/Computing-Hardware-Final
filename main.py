@@ -1,9 +1,11 @@
-from "src/camera_manager.py" import CameraManager
-from "src/data_manager.py" import DataManager
-from "src/data_manager.py" import EmotionDetector
+from src.camera_manager import CameraManager
+from src.data_manager import DataManager
+from src.emotion_detector import EmotionDetector
+import src.utility as utils
 import cv2
 
 cam = CameraManager()
+emotion = EmotionDetector()
 
 while True:
     try:
@@ -13,10 +15,13 @@ while True:
 
         # if the `q` key was pressed, break from the loop and clean up all windows
         if key == ord("q"):
-            del cam 
+            del cam
             break
         elif key == ord("t"):
-            cv2.imshow("Frame", cam.take_image())  # Display the frame for debug purposes
+            frame = cam.take_image()
+            cv2.imshow("Frame", frame)  # Display the frame for debug purposes
+            cv2.imwrite(utils.generate_filename(), frame)
+            emotion.is_student_happy()
         else:
             pass
 
