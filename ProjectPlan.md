@@ -14,7 +14,22 @@ Description: Handles button interactions. This script listens for button presses
 Description: Manages camera operations. This includes initializing the camera, capturing images, and handling any camera-related errors.
 
 6. emotion_detector.py
-Description: Contains the logic for facial emotion detection. It processes the captured images to detect if the student is happy or sad.
+    Constructor (__init__(self)):
+        Initializes EmotionDetector with specific models for face, landmark, action units (AU), emotion, and facepose.
+        Inputs: None.
+        Returns: None.
+        detect_emotions(self, image_path) Method:
+    
+    detect_emotions(self, image_path) Method:
+        Detects emotions in a given image.
+        Inputs: image_path (str) - Path to the image.
+        Returns: Emotion detection results.
+        is_student_happy(self, image_name) Method:
+
+    is_student_happy(self, image_name) Method:
+        Determines if the student in an image is happy.
+        Inputs: image_path (str) - Image file path.
+        Returns: Boolean - True if happy, False otherwise.
 
 7. data_manager.py
 Description: Handles data storage and retrieval. It saves feedback results along with time and menu item data to a CSV file and ensures proper handling of data formats.

@@ -15,12 +15,11 @@ class EmotionDetector:
         # Detect emotions in the given image
         return self.detector.detect_image(image_path)
 
-    def is_student_happy(self, image_name):
+    def is_student_happy(self, image_path):
         # Construct the full path to the image
-        image_full_path = f'{image_name}'
 
         # Get emotion predictions for the image
-        user_emotions = self.detect_emotions(image_full_path).emotions
+        user_emotions = self.detect_emotions(image_path).emotions
 
         # Calculate the positive and negative factors
         positive_factor = user_emotions["happiness"] + user_emotions["surprise"]
