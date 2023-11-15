@@ -8,6 +8,8 @@
 │   └── images
 ├── main.py
 ├── src
+│   ├── __pycache__
+│   │   └── emotion_detector.cpython-311.pyc
 │   ├── button_handler.py
 │   ├── camera_manager.py
 │   ├── data_manager.py
@@ -19,7 +21,9 @@
         ├── csv
         │   └── results.csv
         └── images
-            ├── happy_student.png
-            └── unhappy_student.jpg
+            ├── FALSE_0.jpg
+            ├── FALSE_1.jpg
+            ├── TRUE_0.png
+            └── TRUE_1.png
 
-9 directories, 14 files
+10 directories, 17 files

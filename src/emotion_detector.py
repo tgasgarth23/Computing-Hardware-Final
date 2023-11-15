@@ -31,8 +31,8 @@ class EmotionDetector:
 
 if __name__ == '__main__':
     detector = EmotionDetector()
-    happy_test = detector.is_student_happy('test/data/images/happy_student.png')
-    sad_test = detector.is_student_happy('test/data/images/unhappy_student.jpg')
+    happy_test = detector.is_student_happy('test/data/images/TRUE_0.png')
+    sad_test = detector.is_student_happy('test/data/images/FALSE_0.jpg')
     if happy_test:
         print('Happy Student PASS')
     else:
