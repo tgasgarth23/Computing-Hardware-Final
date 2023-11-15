@@ -17,7 +17,7 @@ class EmotionDetector:
         user_emotions = self.detect_emotions(image_path).emotions
 
         positive_factor = user_emotions["happiness"] + user_emotions["surprise"]
-        negative_factor = user_emotions["anger"] + user_emotions["disgust"] + user_emotions["sadness"]
+        negative_factor = user_emotions["anger"] + user_emotions["disgust"] + user_emotions["sadness"] + user_emotions["fear"]
 
         return (positive_factor > negative_factor).bool()
 
