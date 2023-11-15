@@ -4,6 +4,7 @@ from skimage.color import rgb2gray
 from skimage import data, io
 import cv2
 import imutils
+import os
 
 class CameraManager:
     def __init__(self):
@@ -43,3 +44,17 @@ class CameraManager:
         frame = imutils.resize(frame, width=400)
         frame = self.__image_preprocess(frame)
         return frame
+    
+
+    def save_image(self, frame, file_path):
+        """
+        Saves the given frame to the specified file path.
+
+        :param frame: The image frame to be saved.
+        :param file_path: The path where the image will be saved.
+        """
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+        # Save the image
+        cv2.imwrite(file_path, frame)

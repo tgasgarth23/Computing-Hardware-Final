@@ -23,4 +23,7 @@ def generate_filename():
     filename = f"image_{timestamp}.jpg"
     return filename
 
+def get_menu():
+    # fill out later
+    return ['Option 1', 'Option 2', 'Option 3']
 

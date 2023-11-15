@@ -7,13 +7,10 @@ Description: Contains configuration settings for the project, such as GPIO pin a
 3. menu_display.py
 Description: Manages the display screen. It includes functions to display the menu items on the main screen and update the screen (e.g., showing the thank you message).
 
-4. button_handler.py
-Description: Handles button interactions. This script listens for button presses and triggers appropriate actions (like switching to camera feed or taking a picture).
-
-5. camera_manager.py
+4. camera_manager.py
 Description: Manages camera operations. This includes initializing the camera, capturing images, and handling any camera-related errors.
 
-6. emotion_detector.py
+5. emotion_detector.py
     Constructor (__init__(self)):
         Initializes EmotionDetector with specific models for face, landmark, action units (AU), emotion, and facepose.
         Inputs: None.
@@ -31,7 +28,7 @@ Description: Manages camera operations. This includes initializing the camera, c
         Inputs: image_path (str) - Image file path.
         Returns: Boolean - True if happy, False otherwise.
 
-7. data_manager.py
+6. data_manager.py
     Constructor:
         params: EmotionDetector, csv_path
     
@@ -39,12 +36,12 @@ Description: Manages camera operations. This includes initializing the camera, c
         params: time_info, menu_item, emotion, image_path
         saves info to csv
 
-8. utility.py
+7. utility.py
     delete_all_images:
         params: directory path
         deletes all files in a directory
 
-10. test/
+8. test/
 
 
 Create file tree: tree -I 'venv' > contents_tree.txt
