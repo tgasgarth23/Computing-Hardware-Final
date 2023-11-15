@@ -19,9 +19,8 @@ class CameraManager:
     def __del__(self):
         cv2.destroyAllWindows()
 
-
     # ImagePreProcess: Function defined to handle the pre-processing of the image captured to prepare it as model input.
-    def image_preprocess(self, im_orig):
+    def __image_preprocess(self, im_orig):
         im_gray = rgb2gray(im_orig)  # Convert the original image to a grayscale image
         img_gray_u8 = img_as_ubyte(
             im_gray)  # Convert greyscale image to an 8-bit unsigned integer so each pixel value ranges from 0-255
@@ -42,6 +41,5 @@ class CameraManager:
     def take_image(self):
         frame = self.cam.capture_array()
         frame = imutils.resize(frame, width=400)
-        frame = self.image_preprocess(frame)
-        cv2.imshow("Frame", frame)  # Display the frame for debug purposes
-
+        frame = self.__image_preprocess(frame)
+        return frame
