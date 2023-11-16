@@ -53,8 +53,5 @@ class CameraManager:
         :param frame: The image frame to be saved.
         :param file_path: The path where the image will be saved.
         """
-        # Ensure the directory exists
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
-
-        # Save the image
         cv2.imwrite(file_path, frame)
