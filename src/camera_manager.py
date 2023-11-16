@@ -5,6 +5,7 @@ from skimage import data, io
 import cv2
 import imutils
 import os
+import numpy as np
 
 class CameraManager:
     def __init__(self):
@@ -53,5 +54,7 @@ class CameraManager:
         :param frame: The image frame to be saved.
         :param file_path: The path where the image will be saved.
         """
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
-        cv2.imwrite(file_path, frame)
+        image = frame
+        image_2d = np.squeeze(image, axis=(0, 3))
+        # Save the image as a PNG file
+        success = cv2.imwrite(file_path, image_2d)

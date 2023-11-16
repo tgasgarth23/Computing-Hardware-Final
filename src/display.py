@@ -14,20 +14,20 @@ class Display:
         self.initilize_root()
         self.bind_keys()
         self.initialize_menu_screen()
-        self.window.mainloop()
+        self.root.mainloop()
     
     def initilize_root(self):
-        self.window = tk.Tk()
-        self.window.title("Review Display")
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
-        self.window.geometry(f"{screen_width}x{screen_height}")
-        self.window.attributes('-fullscreen', True)
+        self.root = tk.Tk()
+        self.root.title("Review Display")
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        self.root.geometry(f"{screen_width}x{screen_height}")
+        self.root.attributes('-fullscreen', True)
 
     def bind_keys(self):
-        self.window.bind("<Up>", self.move_up)
-        self.window.bind("<Down>", self.move_down)
-        self.window.bind("<Return>", self.select_option)
+        self.root.bind("<Up>", self.move_up)
+        self.root.bind("<Down>", self.move_down)
+        self.root.bind("<Return>", self.select_option)
 
     def move_up(self, event):
         if self.menu_listbox.curselection():
@@ -54,7 +54,7 @@ class Display:
         if self.camera_frame is not None:
             self.camera_frame.pack_forget()
 
-        self.menu_frame = tk.Frame(self.window)
+        self.menu_frame = tk.Frame(self.root)
         self.menu_frame.pack_forget()
 
         self.menu_frame.pack(fill=tk.BOTH, expand=True)
@@ -78,7 +78,7 @@ class Display:
         # Clear the current frame
         self.menu_frame.pack_forget()
 
-        self.camera_frame = tk.Frame(self.window)
+        self.camera_frame = tk.Frame(self.root)
         self.camera_frame.pack(fill=tk.BOTH, expand=True)
 
         # Live feed display (placeholder label)
@@ -96,6 +96,7 @@ class Display:
     def take_picture(self, selected_option):
         # Code to capture the picture using the camera manager
         picture = self.camera_frame.take_image()
+        picture = 
         name = datetime.now()
         file_path = f'data/images/{name}'
         self.camera_manager.save_image(picture, file_path)
