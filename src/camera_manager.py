@@ -1,10 +1,11 @@
-from picamera2 import Picamera2
+from picamera2 import Picamera2, Preview
+from libcamera import Transform
 from skimage import img_as_ubyte
 from skimage.color import rgb2gray
 from skimage import data, io
 import cv2
 import imutils
-from emotion_detector import EmotionDetector
+from .emotion_detector import EmotionDetector
 
 facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 model = EmotionDetector()
@@ -16,9 +17,10 @@ class CameraManager:
 
         #CONFIGURE CAMERA
         self.cam.preview_configuration.main.size=(1280,720)
-        self.cam.preview_configuration.main.format="RGB888"
+        #self.cam.preview_configuration.main.format="RGB888"
         self.cam.preview_configuration.align()
         self.cam.configure("preview")
+        self.cam.start_preview(Preview.QTGL, x=100, y=200, width=800, height=800, transform=Transform(hflip=1))
         self.cam.start()
 
     def __del__(self):
@@ -26,13 +28,9 @@ class CameraManager:
 
     # ImagePreProcess: Function defined to handle the pre-processing of the image captured to prepare it as model input.
     def __image_preprocess(self, im_orig):
-        #im_gray = rgb2gray(im_orig)  # Convert the original image to a grayscale image
+        im_gray = rgb2gray(im_orig)  # Convert the original image to a grayscale image
         #gray_fr = cv2.cvtColor(im_orig, cv2.COLOR_BGR2GRAY)
         
- 
-            
-        
-
         #img_gray_u8 = img_as_ubyte(
         #    im_gray)  # Convert greyscale image to an 8-bit unsigned integer so each pixel value ranges from 0-255
 
@@ -51,6 +49,6 @@ class CameraManager:
 
     def take_image(self):
         frame = self.cam.capture_array()
-        frame = imutils.resize(frame, width=400)
-        frame = self.__image_preprocess(frame)
+        #frame = imutils.resize(frame, width=400)
+        #frame = self.__image_preprocess(frame)
         return frame

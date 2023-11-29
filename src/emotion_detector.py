@@ -7,13 +7,6 @@ import os
 import cv2
 import matplotlib.pyplot as plt
 
-config = tf.compat.v1.ConfigProto()
-config.gpu_options.per_process_gpu_memory_fraction = 0.15
-session = tf.compat.v1.Session(config=config)
-set_session(session)
-facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-
-
 class EmotionDetector:
     
     EMOTIONS_LIST = ["Angry", "Disgust",
@@ -26,10 +19,17 @@ class EmotionDetector:
             loaded_model_json = json_file.read()
             self.loaded_model = model_from_json(loaded_model_json)
         self.loaded_model.load_weights("model_weights.h5")
-        print("Initialization complete!\n")
+        
+        self.config = tf.compat.v1.ConfigProto()
+        self.config.gpu_options.per_process_gpu_memory_fraction = 0.15
+        global session
+        session = tf.compat.v1.Session(config=self.config)
+        set_session(session)
+        self.facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+        
+        print("Emotion detector initialization complete!\n")
         
     def get_emotion(self, img):
-        global session
         set_session(session)
         self.preds = self.loaded_model.predict(img)
         print(self.preds)
@@ -54,10 +54,13 @@ class EmotionDetector:
     
     
     def analyze_image(self, img):
+        print("analyzing image")
         gray_fr = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = facec.detectMultiScale(gray_fr, 1.3, 5)
+        faces = self.facec.detectMultiScale(gray_fr, 1.3, 5)
+        print(faces)
         
         for (x, y, w, h) in faces:
+            print("face detected")
             fc = gray_fr[y:y+h, x:x+w]
             roi = cv2.resize(fc, (48, 48))
             roi = roi[np.newaxis, :, :, np.newaxis]
@@ -66,16 +69,16 @@ class EmotionDetector:
             print(self.is_face_happy(roi))
             
     def analyze_image_file(self, image_path):
-        path = self.get_path(image_path)
-        img = cv2.imread(path)
+        #path = self.get_path(image_path)
+        img = cv2.imread(image_path)
         self.analyze_image(img)
 
             
 
 if __name__ == '__main__':
     detector = EmotionDetector()
-    happy_test = detector.analyze_image_file("test/data/images/TRUE_0.png")
-    sad_test = detector.analyze_image_file("test/data/images/FALSE_2.jpg")
+    happy_test = detector.analyze_image_file("/home/ryantrevor/Computing-Hardware-Final/test/data/images/TRUE_0.png")
+    sad_test = detector.analyze_image_file("/home/ryantrevor/Computing-Hardware-Final/test/data/images/FALSE_2.jpg")
     '''
     if happy_test:
         print('Happy Student PASS')
