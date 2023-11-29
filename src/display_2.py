@@ -1,9 +1,18 @@
 import tkinter as tk
+from tkinter import messagebox
+import cv2
+from PIL import Image, ImageTk
+import threading
 
 class FullscreenListApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Fullscreen List Application")
+
+        self.cap = cv2.VideoCapture(1)
+        self.webcam_label = tk.Label(self)
+        self.update_webcam_feed()
+
 
         # Make the window fullscreen
         self.attributes("-fullscreen", True)
@@ -29,7 +38,19 @@ class FullscreenListApp(tk.Tk):
         for option in options:
             self.listbox.insert(tk.END, option)
 
-        # Bind keyboard events
+        # Bind keyboard events for listbox navigation
+        self.bind_listbox_navigation()
+
+        # Feedback screen elements (initially hidden)
+        self.feedback_screen = tk.Listbox(self, font=('Arial', option_font_size), width=50, height=2)
+        feedback_options = ['Take Picture', 'Cancel Feedback']
+        for option in feedback_options:
+            self.feedback_screen.insert(tk.END, option)
+
+        # Selected option
+        self.selected_option = None
+
+    def bind_listbox_navigation(self):
         self.bind("<Up>", self.navigate_up)
         self.bind("<Down>", self.navigate_down)
         self.bind("<Return>", self.select_option)
@@ -55,8 +76,71 @@ class FullscreenListApp(tk.Tk):
             self.listbox.activate(0)
 
     def select_option(self, event):
-        selected_option = self.listbox.get(self.listbox.curselection())
-        print(f"Selected: {selected_option}")
+        if self.feedback_screen.winfo_ismapped():
+            self.execute_feedback_option()
+        else:
+            self.selected_option = self.listbox.get(self.listbox.curselection())
+            self.show_feedback_screen()
+
+    def show_feedback_screen(self):
+        if not self.cap.isOpened():
+            messagebox.showerror("Error", "Webcam not detected.")
+            return
+
+        self.listbox.pack_forget()
+        self.webcam_label.pack(expand=True, fill='both')
+        self.bind_feedback_navigation()
+
+    def bind_feedback_navigation(self):
+        self.bind("<Up>", lambda event: self.feedback_navigate(-1))
+        self.bind("<Down>", lambda event: self.feedback_navigate(1))
+        self.bind("<Return>", self.select_feedback_option)
+        self.bind("<Escape>", self.return_to_main_screen)
+
+    def feedback_navigate(self, direction):
+        current_index = self.feedback_screen.curselection()
+        if current_index:
+            new_index = max(min(current_index[0] + direction, self.feedback_screen.size() - 1), 0)
+            self.feedback_screen.selection_clear(current_index)
+            self.feedback_screen.selection_set(new_index)
+            self.feedback_screen.activate(new_index)
+        else:
+            self.feedback_screen.selection_set(0)
+            self.feedback_screen.activate(0)
+
+    def select_feedback_option(self, event):
+        self.execute_feedback_option()
+
+    def execute_feedback_option(self):
+        selected_feedback = self.feedback_screen.get(self.feedback_screen.curselection())
+        if selected_feedback == 'Take Picture':
+            self.take_picture()
+        elif selected_feedback == 'Cancel Feedback':
+            self.return_to_main_screen()
+
+    def take_picture(self):
+        print(f"Selected: {self.selected_option}")
+        self.return_to_main_screen()
+
+    def return_to_main_screen(self, event = None):
+        self.webcam_label.pack_forget()
+        self.listbox.pack(expand=True, fill='both')
+        self.bind_listbox_navigation()
+
+    def update_webcam_feed(self):
+        if self.webcam_label.winfo_ismapped():
+            _, frame = self.cap.read()
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            im = Image.fromarray(frame)
+            img = ImageTk.PhotoImage(image=im)
+            self.webcam_label.configure(image=img)
+            self.webcam_label.image = img
+            self.webcam_label.after(10, self.update_webcam_feed)
+
+    def on_closing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            self.cap.release()
+            self.destroy()
 
 # Create and run the application
 app = FullscreenListApp()
