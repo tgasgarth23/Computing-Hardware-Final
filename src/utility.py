@@ -13,11 +13,8 @@ def delete_all_images(directory):
         except Exception as e:
             print(f'Failed to delete {file_path}. Reason: {e}')
 
-def generate_filename():
+def generate_filename(timestamp):
     import datetime
-
-    # Get the current timestamp with milliseconds
-    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")[:-3]
 
     # Create a filename using the timestamp
     filename = f"image_{timestamp}.jpg"
@@ -25,5 +22,5 @@ def generate_filename():
 
 def get_menu():
     # fill out later
-    return ['Option 1', 'Option 2', 'Option 3']
+    return ['Grilled Chicken', 'White Rice', 'Brown Rice', 'Pasta', 'Alfredo Sauce', 'Marinara Sauce']
 

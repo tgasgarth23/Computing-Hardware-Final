@@ -5,7 +5,7 @@ from data_manager import DataManager
 from camera_manager import CameraManager
 
 class Display:
-    def __init__(self, camera_manager: CameraManager, data_manager: DataManager, menu_options):
+    def __init__(self, camera_manager, data_manager: DataManager, menu_options):
         self.menu_options = menu_options
         self.camera_manager = camera_manager
         self.data_manager = data_manager
@@ -96,7 +96,6 @@ class Display:
     def take_picture(self, selected_option):
         # Code to capture the picture using the camera manager
         picture = self.camera_frame.take_image()
-        picture = 
         name = datetime.now()
         file_path = f'data/images/{name}'
         self.camera_manager.save_image(picture, file_path)
@@ -116,4 +115,5 @@ class Display:
 if __name__ == '__main__':
     camera_manager = None
     menu_options = ['Option 1', 'Option 2', 'Option 3']
-    app = Display(camera_manager, menu_options)
+    data_manager = DataManager()
+    app = Display(camera_manager, None, menu_options)
