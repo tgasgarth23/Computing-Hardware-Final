@@ -18,10 +18,10 @@ def main():
                 break
             elif keyboard.is_pressed('t'):
                 print("Taking a picture...")
-                frame = cam.take_image()
-                cv2.imshow("Frame", frame)  # Display the frame for debug purposes
+                frame = cam.take_image()                
+                frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) # fix preview color
+                cv2.imshow("Frame", frame)  # Display frame for debug purposes
                 cv2.waitKey(1)
-                #cv2.imwrite(utils.generate_filename(), frame)
                 emotion.analyze_image(frame)
                 print("Picture taken successfully!")
             else:
