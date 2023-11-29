@@ -21,7 +21,7 @@ while True:
             frame = cam.take_image()
             cv2.imshow("Frame", frame)  # Display the frame for debug purposes
             cv2.imwrite(utils.generate_filename(), frame)
-            emotion.is_student_happy()
+            emotion.analyze_image(frame)
         else:
             pass
 
