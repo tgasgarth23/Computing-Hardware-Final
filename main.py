@@ -6,14 +6,31 @@ import cv2
 import keyboard
 
 
-
-
 def main():
+    menu = utils.get_menu_items()
+
+    # Printing the list of options
+    print("Please select a menu item to review:")
+    for i, option in enumerate(menu, 1):
+        print(f"{i}. {option}")
+
+    # Getting user input
+    selected_item = int(input("Enter the number of your choice: "))
+
+    # Validating the user input
+    if not 1 <= selected_item <= len(menu):
+        print("Invalid selection. Please try again.")
+        main()
+    
+    camera_analysis(selected_item)
+    
+
+
+def camera_analysis(menu_item):
     cam = CameraManager()
-    emotion = EmotionDetector()
-    print("Camera and Emotion Modules Initialized!")
-
-
+    emotion_analyzer = EmotionDetector()
+    data_manager = DataManager()
+    print(f"To review {menu_item} by taking a picture of your face, press 't'.\nTo cancel the review, press 'q'.")
     while True:
         try:
             # Grab the frame from the threaded video stream and resize it to have a maximum width of 400 pixels
@@ -23,15 +40,16 @@ def main():
             if keyboard.is_pressed('q'):
                 print("quit")
                 del cam
-                break
+                main()
             elif keyboard.is_pressed('t'):
-                print("taking pic")
                 frame = cam.take_image()
                 cv2.imshow("Frame", frame)  # Display the frame for debug purposes
                 cv2.waitKey(1)
                 #cv2.imwrite(utils.generate_filename(), frame)
-                emotion.analyze_image(frame)
-                print("pic taken")
+                emotions = emotion_analyzer.analyze_image(frame)
+                data_manager.save_to_csv(emotions, menu_item)
+                print(f"Thank you for your review of {menu_item}!\nEmotion analysis of your picture:\t{emotions}")
+                main()
             else:
                 pass
 
