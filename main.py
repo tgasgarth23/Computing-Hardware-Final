@@ -8,21 +8,24 @@ import keyboard
 
 def main():
     menu = utils.get_menu_items()
-
-    # Printing the list of options
-    print("Please select a menu item to review:")
-    for i, option in enumerate(menu, 1):
-        print(f"{i}. {option}")
-
-    # Getting user input
-    selected_item = int(input("Enter the number of your choice: "))
-
+    selected_item = 0
     # Validating the user input
-    if not 1 <= selected_item <= len(menu):
-        print("Invalid selection. Please try again.")
-        main()
+
+    while(not 1 <= selected_item <= len(menu)):
+        menu = utils.get_menu_items()
+
+        # Printing the list of options
+        print("Please select a menu item to review:")
+        for i, option in enumerate(menu, 1):
+            print(f"{i}. {option}")
+
+        # Getting user input
+        selected_item = int(input("Enter the number of your choice: "))
+        if selected_item > len(menu) or selected_item < 1:
+            print("Invalid selection. Please try again.")
     
-    camera_analysis(selected_item)
+    while(True):
+        camera_analysis(selected_item)
     
 
 
@@ -40,7 +43,7 @@ def camera_analysis(menu_item):
             if keyboard.is_pressed('q'):
                 print("quit")
                 del cam
-                main()
+                return
             elif keyboard.is_pressed('t'):
                 frame = cam.take_image()
                 cv2.imshow("Frame", frame)  # Display the frame for debug purposes
@@ -49,7 +52,9 @@ def camera_analysis(menu_item):
                 emotions = emotion_analyzer.analyze_image(frame)
                 data_manager.save_to_csv(emotions, menu_item)
                 print(f"Thank you for your review of {menu_item}!\nEmotion analysis of your picture:\t{emotions}")
-                main()
+                cv2.destroyAllWindows()  # Close the window showing the frame
+                del cam
+                return
             else:
                 pass
 
