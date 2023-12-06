@@ -30,9 +30,10 @@ def main():
                 selected_item = 0  # Resetting to ensure loop continues
         except ValueError:
             print("Invalid input. Please enter a number.")
-    
-    while(True):
-        camera_analysis(menu[selected_item], cam, emotion_analyzer, data_manager)
+
+        done = False
+        while(not done):
+            done = camera_analysis(menu[selected_item], cam, emotion_analyzer, data_manager)
     
 
 def camera_analysis(menu_item, cam, emotion_analyzer, data_manager):
@@ -46,7 +47,7 @@ def camera_analysis(menu_item, cam, emotion_analyzer, data_manager):
             if keyboard.is_pressed('q'):
                 print("quit")
                 # del cam
-                return
+                return True
             elif keyboard.is_pressed('t'):
                 frame = cam.take_image()
                 cv2.imshow("Frame", frame)  # Display the frame for debug purposes
@@ -57,7 +58,7 @@ def camera_analysis(menu_item, cam, emotion_analyzer, data_manager):
                 print(f"Thank you for your review of {menu_item}!\nEmotion analysis of your picture:\t{emotions}")
                 cv2.destroyAllWindows()  # Close the window showing the frame
                 # del cam
-                return
+                return True
             else:
                 pass
 
