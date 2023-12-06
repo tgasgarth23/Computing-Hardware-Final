@@ -16,6 +16,7 @@ def main():
 
     while not 1 <= selected_item <= len(menu):
         menu = utils.get_menu_items()
+        get_camera = False
 
         # Printing the list of options
         print("Please select a menu item to review:")
@@ -28,11 +29,13 @@ def main():
             if selected_item > len(menu) or selected_item < 1:
                 print("Invalid selection. Please try again.")
                 selected_item = 0  # Resetting to ensure loop continues
+            else:
+                get_camera = True
         except ValueError:
             print("Invalid input. Please enter a number.")
 
         done = False
-        while(not done):
+        while(not done and get_camera):
             done = camera_analysis(menu[selected_item], cam, emotion_analyzer, data_manager)
     
 
