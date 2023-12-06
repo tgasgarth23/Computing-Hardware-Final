@@ -14,7 +14,8 @@ def main():
     data_manager = DataManager()
     # Validating the user input
 
-    while not 1 <= selected_item <= len(menu):
+    # while not 1 <= selected_item <= len(menu):
+    while(True):
         menu = utils.get_menu_items()
         get_camera = False
 
