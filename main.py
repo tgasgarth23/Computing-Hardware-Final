@@ -32,7 +32,7 @@ def main():
             print("Invalid input. Please enter a number.")
     
     while(True):
-        camera_analysis(selected_item, cam, emotion_analyzer, data_manager)
+        camera_analysis(menu[selected_item], cam, emotion_analyzer, data_manager)
     
 
 def camera_analysis(menu_item, cam, emotion_analyzer, data_manager):
