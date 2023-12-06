@@ -36,7 +36,7 @@ def main():
 
         done = False
         while(not done and get_camera):
-            done = camera_analysis(menu[selected_item], cam, emotion_analyzer, data_manager)
+            done = camera_analysis(menu[selected_item-1], cam, emotion_analyzer, data_manager)
     
 
 def camera_analysis(menu_item, cam, emotion_analyzer, data_manager):
