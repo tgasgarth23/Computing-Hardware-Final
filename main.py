@@ -14,7 +14,7 @@ def main():
     data_manager = DataManager()
     # Validating the user input
 
-    while(not 1 <= selected_item <= len(menu)):
+    while not 1 <= selected_item <= len(menu):
         menu = utils.get_menu_items()
 
         # Printing the list of options
@@ -22,10 +22,14 @@ def main():
         for i, option in enumerate(menu, 1):
             print(f"{i}. {option}")
 
-        # Getting user input
-        selected_item = int(input("Enter the number of your choice: "))
-        if selected_item > len(menu) or selected_item < 1:
-            print("Invalid selection. Please try again.")
+        # Getting user input with validation for integer input
+        try:
+            selected_item = int(input("Enter the number of your choice: "))
+            if selected_item > len(menu) or selected_item < 1:
+                print("Invalid selection. Please try again.")
+                selected_item = 0  # Resetting to ensure loop continues
+        except ValueError:
+            print("Invalid input. Please enter a number.")
     
     while(True):
         camera_analysis(selected_item, cam, emotion_analyzer, data_manager)
