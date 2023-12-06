@@ -60,7 +60,7 @@ def camera_analysis(menu_item, cam, emotion_analyzer, data_manager):
                 emotions = emotion_analyzer.analyze_image(frame)
                 data_manager.save_to_csv(emotions, menu_item)
                 print(f"Thank you for your review of {menu_item}!\nEmotion analysis of your picture:\t{emotions}")
-                cv2.destroyAllWindows()  # Close the window showing the frame
+                # cv2.destroyAllWindows()  # Close the window showing the frame
                 # del cam
                 return True
             else:
