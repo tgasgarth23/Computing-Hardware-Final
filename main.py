@@ -9,6 +9,9 @@ import keyboard
 def main():
     menu = utils.get_menu_items()
     selected_item = 0
+    cam = CameraManager()
+    emotion_analyzer = EmotionDetector()
+    data_manager = DataManager()
     # Validating the user input
 
     while(not 1 <= selected_item <= len(menu)):
@@ -25,14 +28,10 @@ def main():
             print("Invalid selection. Please try again.")
     
     while(True):
-        camera_analysis(selected_item)
+        camera_analysis(selected_item, cam, emotion_analyzer, data_manager)
     
 
-
-def camera_analysis(menu_item):
-    cam = CameraManager()
-    emotion_analyzer = EmotionDetector()
-    data_manager = DataManager()
+def camera_analysis(menu_item, cam, emotion_analyzer, data_manager):
     print(f"To review {menu_item} by taking a picture of your face, press 't'.\nTo cancel the review, press 'q'.")
     while True:
         try:
@@ -42,7 +41,7 @@ def camera_analysis(menu_item):
             # if the `q` key was pressed, break from the loop and clean up all windows
             if keyboard.is_pressed('q'):
                 print("quit")
-                del cam
+                # del cam
                 return
             elif keyboard.is_pressed('t'):
                 frame = cam.take_image()
@@ -53,14 +52,15 @@ def camera_analysis(menu_item):
                 data_manager.save_to_csv(emotions, menu_item)
                 print(f"Thank you for your review of {menu_item}!\nEmotion analysis of your picture:\t{emotions}")
                 cv2.destroyAllWindows()  # Close the window showing the frame
-                del cam
+                # del cam
                 return
             else:
                 pass
 
         except KeyboardInterrupt:
+            print("error")
             # Do a bit of cleanup
-            del cam
+            # del cam
             
 if __name__=="__main__":
     main()
