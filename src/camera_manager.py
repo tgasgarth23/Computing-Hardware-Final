@@ -27,10 +27,10 @@ class CameraManager:
         self.cam.annotate_text = "Testing testing 123"
         self.cam.start()
 
-    def show_preview():
+    def show_preview(self):
         self.cam.start_preview()
 
-    def hide_preview():
+    def hide_preview(self):
         self.cam.stop_preview()
 
     def __del__(self):
