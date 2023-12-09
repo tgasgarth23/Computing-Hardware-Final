@@ -8,12 +8,12 @@ import cv2
 import matplotlib.pyplot as plt
 
 class EmotionDetector:
-    
+
     EMOTIONS_LIST = ["Angry", "Disgust",
                      "Fear", "Happy",
                      "Neutral", "Sad",
                      "Surprise"]
-    
+
     def __init__(self):
         with open("model.json", "r") as json_file:
             loaded_model_json = json_file.read()
@@ -27,9 +27,9 @@ class EmotionDetector:
         global session
         session = tf.compat.v1.Session(config=self.config)
         set_session(session)
-        
+
         print("Emotion detection initialization complete!\n")
-        
+
     def get_emotion(self, img):
         set_session(session)
         self.preds = self.loaded_model.predict(img)
@@ -41,14 +41,14 @@ class EmotionDetector:
         print("User is showing emotion: " + emotion)
         if not factorize:
             return True if emotion == "Neutral" or emotion == "Surprise" or emotion == "Happy" else False
-            
+
         preds = self.preds[0]
         positive_factor = preds[3] + preds[4] + preds[6]
         negative_factor = preds[0] + preds[1] + preds[2] + preds[5]
-        
+
         return positive_factor > negative_factor
-    
-    
+
+
     def analyze_image(self, img):
         gray_fr = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = self.facec.detectMultiScale(gray_fr, 1.3, 5)
@@ -59,10 +59,9 @@ class EmotionDetector:
             img_final = cv2.resize(fc, (48, 48))[np.newaxis, :, :, np.newaxis]
             plt.imshow(img_final[0])
             plt.show()
-            emotions.append(self.is_face_happy(roi))
-            # print(self.is_face_happy(roi))
+            emotions.append(self.is_face_happy(img_final))
         return emotions
-            
+
     def analyze_image_file(self, image_path):
         img = cv2.imread(image_path)
         self.analyze_image(img)
