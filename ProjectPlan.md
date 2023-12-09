@@ -32,15 +32,19 @@ Description: Manages camera operations. This includes initializing the camera, c
         Returns: Boolean - True if happy, False otherwise.
 
 7. data_manager.py
-Description: Handles data storage and retrieval. It saves feedback results along with time and menu item data to a CSV file and ensures proper handling of data formats.
+    Constructor:
+        params: EmotionDetector, csv_path
+    
+    process_data:
+        params: time_info, menu_item, emotion, image_path
+        saves info to csv
 
 8. utility.py
-Description: Includes utility functions used across the project, such as logging, error handling, and any other shared functionalities.
+    delete_all_images:
+        params: directory path
+        deletes all files in a directory
 
 10. test/
-Description: A directory containing test scripts for each component (e.g., test_camera_manager.py, test_button_handler.py). These scripts are used to ensure each component is functioning correctly in isolation before integrating them into the main application.
-
-This structure provides a modular approach, making the project more manageable and maintainable. Each script has a clear responsibility, facilitating easier debugging and potential future expansions or modifications.
 
 
 Create file tree: tree -I 'venv' > contents_tree.txt

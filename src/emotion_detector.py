@@ -50,23 +50,22 @@ class EmotionDetector:
     
     
     def analyze_image(self, img):
-        print("Analyzing image...")
         gray_fr = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = self.facec.detectMultiScale(gray_fr, 1.3, 5)
-        print(faces)
-        
+        emotions = []
         for (x, y, w, h) in faces:
-            print("Face detected!")
+            # print("face detected")
             fc = gray_fr[y:y+h, x:x+w]
             img_final = cv2.resize(fc, (48, 48))[np.newaxis, :, :, np.newaxis]
             plt.imshow(img_final[0])
             plt.show()
-            print(self.is_face_happy(img_final))
+            emotions.append(self.is_face_happy(roi))
+            # print(self.is_face_happy(roi))
+        return emotions
             
     def analyze_image_file(self, image_path):
         img = cv2.imread(image_path)
         self.analyze_image(img)
-
 
 if __name__ == '__main__':
     detector = EmotionDetector()
