@@ -58,20 +58,6 @@ class CameraManager:
         # Reshape the inverted image into a 4-D NumPy array in order to conform to the expected input of the model
         img_final = img_gray_invert.reshape(1, 28, 28, 1)
         return img_resized
-        '''
-        # Convert grayscale image to binary (black/white) using Otsu's thresholding method
-        (thresh, im_bw) = cv2.threshold(img_gray_u8, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-
-        # Standardize the size of the image by resizing it using OpenCV to 28x28 pixels
-        img_resized = cv2.resize(im_gray, (48, 48))
-
-        # Invert the image to effectively reverse the black-and-white colors
-        img_gray_invert = 255 - img_resized
-
-        # Reshape the inverted image into a 4-D NumPy array in order to conform to the expected input of the model
-        img_final = img_gray_invert.reshape(1, 28, 28, 1)
-        return img_resized
-        '''
 
     def take_image(self):
         frame = self.cam.capture_array()

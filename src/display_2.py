@@ -3,6 +3,7 @@ from tkinter import messagebox
 import cv2
 from PIL import Image, ImageTk
 import threading
+import utility as utils
 
 class FullscreenListApp(tk.Tk):
     def __init__(self):
@@ -12,7 +13,6 @@ class FullscreenListApp(tk.Tk):
         self.cap = cv2.VideoCapture(1)
         self.webcam_label = tk.Label(self)
         self.update_webcam_feed()
-
 
         # Make the window fullscreen
         self.attributes("-fullscreen", True)
@@ -24,7 +24,8 @@ class FullscreenListApp(tk.Tk):
         title_label.pack()
 
         # List of options
-        options = ['Grilled Chicken', 'White Rice', 'Brown Rice', 'Pasta', 'Alfredo Sauce', 'Marinara Sauce']
+        #options = ['Grilled Chicken', 'White Rice', 'Brown Rice', 'Pasta', 'Alfredo Sauce', 'Marinara Sauce']
+        options = utils.get_menu_items()
 
         # Calculate font size for options
         option_font_size = (self.winfo_screenheight() - title_label.winfo_reqheight()) // len(options) // 2

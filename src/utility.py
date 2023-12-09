@@ -26,7 +26,7 @@ def generate_filename():
     return filename
 
 def get_menu_items():
-        # Get the current date and time
+    # Get the current date and time
     now = datetime.now()
     month = now.strftime("%B").lower()  # e.g., "december"
     day_of_month = now.day  # e.g., 3
@@ -53,6 +53,6 @@ def get_menu_items():
             return daily_menu
     except FileNotFoundError:
         return f"Menu file not found: {file_path}"
-    
+
 if __name__ == '__main__':
     print(get_menu_items())
