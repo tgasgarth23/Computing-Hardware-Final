@@ -6,7 +6,7 @@ from skimage import data, io
 import cv2
 import imutils
 from emotion_detector import EmotionDetector
-import threading
+import multiprocessing
 
 facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 model = EmotionDetector()
@@ -29,7 +29,7 @@ class CameraManager:
         self.cam.start(show_preview=True)
 
     def show_preview(self):
-        self.camera_thread = threading.Thread(target=self.cam.start_preview)
+        self.camera_thread = multiprocessing.Process(target=self.cam.start_preview)
         self.camera_thread.start()
 
     def hide_preview(self):
