@@ -125,33 +125,16 @@ class FullscreenListApp(tk.Tk):
             self.return_to_main_screen()
 
     def take_picture(self):
-        print(f"To review {menu_item} by taking a picture of your face, press 't'.\nTo cancel the review, press 'q'.")
-        while True:
-            try:
-                if keyboard.is_pressed('q'):
+        #print(f"To review {menu_item} by taking a picture of your face, press 't'.\nTo cancel the review, press 'q'.")
 
-                    print("quit")
-                    # del cam
-                    return True
-                elif keyboard.is_pressed('t'):
-                    frame = cam.take_image()
-                    cv2.imshow("Frame", frame)  # Display the frame for debug purposes
-                    cv2.waitKey(1)
-                    #cv2.imwrite(utils.generate_filename(), frame)
-                    emotions = emotion_analyzer.analyze_image(frame)
-                    data_manager.save_to_csv(emotions, menu_item)
-                    print(f"Thank you for your review of {menu_item}!\nEmotion analysis of your picture:\t{emotions}")
-                    # cv2.destroyAllWindows()  # Close the window showing the frame
-                    # del cam
-                    return True
-                else:
-                    pass
+        frame = self.cam.take_image()
+        cv2.imshow("Frame", frame)  # Display the frame for debug purposes
+        cv2.waitKey(1)
+        emotions = emotion_analyzer.analyze_image(frame)
 
-            except KeyboardInterrupt:
-                print("error")
-                # Do a bit of cleanup
-                # del cam
-        print(f"Selected: {self.selected_option}")
+        menu_item = self.listbox.get(self.listbox.curselection()[0])
+        data_manager.save_to_csv(emotions, menu_item)
+
         self.return_to_main_screen()
 
     def return_to_main_screen(self, event = None):
