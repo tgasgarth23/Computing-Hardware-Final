@@ -5,7 +5,7 @@ from skimage.color import rgb2gray
 from skimage import data, io
 import cv2
 import imutils
-from emotion_detector import EmotionDetector
+from .emotion_detector import EmotionDetector
 import multiprocessing
 
 facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')

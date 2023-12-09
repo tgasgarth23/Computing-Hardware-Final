@@ -1,7 +1,7 @@
 import os
 import csv
 from datetime import datetime
-from emotion_detector import EmotionDetector
+from .emotion_detector import EmotionDetector
 
 class DataManager:
     def __init__(self, csv_path='data/csv/results.csv'):
