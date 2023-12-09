@@ -134,7 +134,8 @@ class FullscreenListApp(tk.Tk):
         print("Emotions are: ")
         print(emotions)
 
-        menu_item = self.listbox.get(self.listbox.curselection()[0])
+        selected_index = self.listbox.curselection()
+        menu_item = self.listbox.get(selected_index[0])
         if emotions != []:
             self.data_manager.save_to_csv(emotions, menu_item)
             self.return_to_main_screen()
