@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import cv2
 from PIL import Image, ImageTk
-import utility as utils
+import .utility as utils
 from camera_manager import CameraManager
 from data_manager import DataManager
 from emotion_detector import EmotionDetector
