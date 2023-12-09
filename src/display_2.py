@@ -122,8 +122,8 @@ class FullscreenListApp(tk.Tk):
 
     def take_picture(self):
         frame = self.cam.take_image()
-        cv2.imshow("Frame", frame)  # Display the frame for debug purposes
-        cv2.waitKey(1)
+        #cv2.imshow("Frame", frame)  # Display the frame for debug purposes
+        #cv2.waitKey(1)
         emotions = self.emotion_analyzer.analyze_image(frame)
         print("Emotions are: ")
         print(emotions)
@@ -140,16 +140,6 @@ class FullscreenListApp(tk.Tk):
         self.feedback_screen.pack_forget()
         self.listbox.pack(expand=True, fill='both')
         self.bind_listbox_navigation()
-
-    def update_webcam_feed(self):
-        if self.webcam_label.winfo_ismapped():
-            _, frame = self.cap.read()
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            im = Image.fromarray(frame)
-            img = ImageTk.PhotoImage(image=im)
-            self.webcam_label.configure(image=img)
-            self.webcam_label.image = img
-            self.webcam_label.after(10, self.update_webcam_feed)
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
