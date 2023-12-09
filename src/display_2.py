@@ -4,9 +4,9 @@ import cv2
 from PIL import Image, ImageTk
 import threading
 import utility as utils
-from CameraManager import camera_manager
-from DataManager import data_manager
-from EmotionDetector import EmotionDetector
+from camera_manager import CameraManager
+from data_manager import DataManager
+from emotion_detector import EmotionDetector
 
 class FullscreenListApp(tk.Tk):
     def __init__(self):
