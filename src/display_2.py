@@ -13,6 +13,7 @@ class FullscreenListApp(tk.Tk):
         self.title("Fullscreen List Application")
 
         self.cam = CameraManager()
+        self.cam.start()
         self.emotion_analyzer = EmotionDetector()
         self.data_manager = DataManager()
 

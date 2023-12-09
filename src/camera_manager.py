@@ -17,25 +17,24 @@ class CameraManager(multiprocessing.Process):
 
         #TODO: configure camera to have better lighting
         super().__init__()
-        self.cam = Picamera2()
+        self.__cam = Picamera2()
 
         #CONFIGURE CAMERA
-        self.cam.preview_configuration.main.size=(1280,720)
-        self.cam.preview_configuration.align()
-        self.cam.configure("preview")
+        self.__cam.preview_configuration.main.size=(1280,720)
+        self.__cam.preview_configuration.align()
+        self.__cam.configure("preview")
         #self.cam.start_preview(Preview.QTGL, x=100, y=200, width=800, height=800, transform=Transform(hflip=1))
-        self.cam.annotate_text = "Testing testing 123"
-        self.cam.start(show_preview=False)
+        self.__cam.annotate_text = "Testing testing 123"
 
     def show_preview(self):
-        self.cam.start_preview()
+        self.__cam.start_preview()
 
     def hide_preview(self):
-        self.cam.stop_preview()
+        self.__cam.stop_preview()
 
     def __del__(self):
         cv2.destroyAllWindows()
-        self.cam.stop_preview()
+        self.__cam.stop_preview()
 
     def __image_preprocess(self, im_orig):
         im_gray = rgb2gray(im_orig)  # Convert the original image to a grayscale image
@@ -58,5 +57,5 @@ class CameraManager(multiprocessing.Process):
         return img_resized
 
     def take_image(self):
-        frame = self.cam.capture_array()
+        frame = self.__cam.capture_array()
         return frame
