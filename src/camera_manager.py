@@ -25,7 +25,13 @@ class CameraManager:
         self.cam.configure("preview")
         #self.cam.start_preview(Preview.QTGL, x=100, y=200, width=800, height=800, transform=Transform(hflip=1))
         self.cam.annotate_text = "Testing testing 123"
-        self.cam.start(show_preview=True)
+        self.cam.start()
+
+    def show_preview():
+        self.cam.start_preview()
+
+    def hide_preview():
+        self.cam.stop_preview()
 
     def __del__(self):
         cv2.destroyAllWindows()

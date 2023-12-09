@@ -4,15 +4,18 @@ import cv2
 from PIL import Image, ImageTk
 import threading
 import utility as utils
+from CameraManager import camera_manager
+from DataManager import data_manager
+from EmotionDetector import EmotionDetector
 
 class FullscreenListApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Fullscreen List Application")
 
-        #self.cap = cv2.VideoCapture(1)
-        #self.webcam_label = tk.Label(self)
-        #self.update_webcam_feed()
+        self.cam = CameraManager()
+        self.emotion_analyzer = EmotionDetector()
+        self.data_manager = DataManager()
 
         # Make the window fullscreen
         self.attributes("-fullscreen", True)
@@ -51,6 +54,7 @@ class FullscreenListApp(tk.Tk):
         # Selected option
         self.selected_option = None
 
+
     def bind_listbox_navigation(self):
         self.bind("<Up>", self.navigate_up)
         self.bind("<Down>", self.navigate_down)
@@ -88,8 +92,9 @@ class FullscreenListApp(tk.Tk):
             #messagebox.showerror("Error", "Webcam not detected.")
         #    return
 
+        self.cam.show_preview()
         self.listbox.pack_forget()
-        self.feedback_screen.pack()
+        self.feedback_screen.pack(expand=True, fill='both')
         #self.webcam_label.pack(expand=True, fill='both')
         self.bind_feedback_navigation()
 
@@ -121,11 +126,38 @@ class FullscreenListApp(tk.Tk):
             self.return_to_main_screen()
 
     def take_picture(self):
+        print(f"To review {menu_item} by taking a picture of your face, press 't'.\nTo cancel the review, press 'q'.")
+        while True:
+            try:
+                if keyboard.is_pressed('q'):
+
+                    print("quit")
+                    # del cam
+                    return True
+                elif keyboard.is_pressed('t'):
+                    frame = cam.take_image()
+                    cv2.imshow("Frame", frame)  # Display the frame for debug purposes
+                    cv2.waitKey(1)
+                    #cv2.imwrite(utils.generate_filename(), frame)
+                    emotions = emotion_analyzer.analyze_image(frame)
+                    data_manager.save_to_csv(emotions, menu_item)
+                    print(f"Thank you for your review of {menu_item}!\nEmotion analysis of your picture:\t{emotions}")
+                    # cv2.destroyAllWindows()  # Close the window showing the frame
+                    # del cam
+                    return True
+                else:
+                    pass
+
+            except KeyboardInterrupt:
+                print("error")
+                # Do a bit of cleanup
+                # del cam
         print(f"Selected: {self.selected_option}")
         self.return_to_main_screen()
 
     def return_to_main_screen(self, event = None):
-        #self.webcam_label.pack_forget()
+        self.cam.hide_preview()
+        self.feedback_screen.pack_forget()
         self.listbox.pack(expand=True, fill='both')
         self.bind_listbox_navigation()
 
