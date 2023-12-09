@@ -130,12 +130,16 @@ class FullscreenListApp(tk.Tk):
         frame = self.cam.take_image()
         cv2.imshow("Frame", frame)  # Display the frame for debug purposes
         cv2.waitKey(1)
-        emotions = emotion_analyzer.analyze_image(frame)
+        emotions = self.emotion_analyzer.analyze_image(frame)
+        print("Emotions are: ")
+        print(emotions)
 
         menu_item = self.listbox.get(self.listbox.curselection()[0])
-        data_manager.save_to_csv(emotions, menu_item)
-
-        self.return_to_main_screen()
+        if emotions != []:
+            self.data_manager.save_to_csv(emotions, menu_item)
+            self.return_to_main_screen()
+        else:
+            messagebox.showinfo("Information", "Face not recognized. Please try again!")
 
     def return_to_main_screen(self, event = None):
         self.cam.hide_preview()
