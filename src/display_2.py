@@ -10,9 +10,9 @@ class FullscreenListApp(tk.Tk):
         super().__init__()
         self.title("Fullscreen List Application")
 
-        self.cap = cv2.VideoCapture(1)
-        self.webcam_label = tk.Label(self)
-        self.update_webcam_feed()
+        #self.cap = cv2.VideoCapture(1)
+        #self.webcam_label = tk.Label(self)
+        #self.update_webcam_feed()
 
         # Make the window fullscreen
         self.attributes("-fullscreen", True)
@@ -84,12 +84,12 @@ class FullscreenListApp(tk.Tk):
             self.show_feedback_screen()
 
     def show_feedback_screen(self):
-        if not self.cap.isOpened():
-            messagebox.showerror("Error", "Webcam not detected.")
-            return
+        #if not self.cap.isOpened():
+            #messagebox.showerror("Error", "Webcam not detected.")
+        #    return
 
         self.listbox.pack_forget()
-        self.webcam_label.pack(expand=True, fill='both')
+        #self.webcam_label.pack(expand=True, fill='both')
         self.bind_feedback_navigation()
 
     def bind_feedback_navigation(self):
@@ -124,7 +124,7 @@ class FullscreenListApp(tk.Tk):
         self.return_to_main_screen()
 
     def return_to_main_screen(self, event = None):
-        self.webcam_label.pack_forget()
+        #self.webcam_label.pack_forget()
         self.listbox.pack(expand=True, fill='both')
         self.bind_listbox_navigation()
 
