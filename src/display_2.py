@@ -88,13 +88,9 @@ class FullscreenListApp(tk.Tk):
             self.show_feedback_screen()
 
     def show_feedback_screen(self):
-        #if not self.cap.isOpened():
-            #messagebox.showerror("Error", "Webcam not detected.")
-        #    return
         self.cam.show_preview()
         self.listbox.pack_forget()
         self.feedback_screen.pack(expand=True, fill='both')
-        #self.webcam_label.pack(expand=True, fill='both')
         self.bind_feedback_navigation()
 
     def bind_feedback_navigation(self):
@@ -125,8 +121,6 @@ class FullscreenListApp(tk.Tk):
             self.return_to_main_screen()
 
     def take_picture(self):
-        #print(f"To review {menu_item} by taking a picture of your face, press 't'.\nTo cancel the review, press 'q'.")
-
         frame = self.cam.take_image()
         cv2.imshow("Frame", frame)  # Display the frame for debug purposes
         cv2.waitKey(1)
@@ -134,10 +128,9 @@ class FullscreenListApp(tk.Tk):
         print("Emotions are: ")
         print(emotions)
 
-        selected_index = self.listbox.curselection()
-        menu_item = self.listbox.get(selected_index[0])
+        print(self.selected_option)
         if emotions != []:
-            self.data_manager.save_to_csv(emotions, menu_item)
+            self.data_manager.save_to_csv(emotions, self.selected_option)
             self.return_to_main_screen()
         else:
             messagebox.showinfo("Information", "Face not recognized. Please try again!")
