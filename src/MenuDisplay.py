@@ -7,7 +7,7 @@ from camera_manager import CameraManager
 from data_manager import DataManager
 from emotion_detector import EmotionDetector
 
-class FullscreenListApp(tk.Tk):
+class MenuDisplay(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Fullscreen List Application")
@@ -27,7 +27,6 @@ class FullscreenListApp(tk.Tk):
         title_label.pack()
 
         # List of options
-        #options = ['Grilled Chicken', 'White Rice', 'Brown Rice', 'Pasta', 'Alfredo Sauce', 'Marinara Sauce']
         options = utils.get_menu_items()
 
         # Calculate font size for options
@@ -131,6 +130,7 @@ class FullscreenListApp(tk.Tk):
         print(self.selected_option)
         if emotions != []:
             self.data_manager.save_to_csv(emotions, self.selected_option)
+
             self.return_to_main_screen()
         else:
             messagebox.showinfo("Information", "Face not recognized. Please try again!")
@@ -145,7 +145,3 @@ class FullscreenListApp(tk.Tk):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
             self.cap.release()
             self.destroy()
-
-# Create and run the application
-app = FullscreenListApp()
-app.mainloop()
