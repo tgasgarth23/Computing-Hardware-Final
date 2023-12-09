@@ -92,7 +92,8 @@ class FullscreenListApp(tk.Tk):
             #messagebox.showerror("Error", "Webcam not detected.")
         #    return
 
-        self.cam.show_preview()
+        self.camera_thread = threading.Thread(target=self.cam.show_preview)
+        self.camera_thread.start()
         self.listbox.pack_forget()
         self.feedback_screen.pack(expand=True, fill='both')
         #self.webcam_label.pack(expand=True, fill='both')
@@ -156,6 +157,7 @@ class FullscreenListApp(tk.Tk):
         self.return_to_main_screen()
 
     def return_to_main_screen(self, event = None):
+        self.camera_thread.join()
         self.cam.hide_preview()
         self.feedback_screen.pack_forget()
         self.listbox.pack(expand=True, fill='both')
