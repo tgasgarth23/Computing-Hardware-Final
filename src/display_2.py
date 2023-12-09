@@ -89,6 +89,7 @@ class FullscreenListApp(tk.Tk):
         #    return
 
         self.listbox.pack_forget()
+        self.feedback_screen.pack()
         #self.webcam_label.pack(expand=True, fill='both')
         self.bind_feedback_navigation()
 
