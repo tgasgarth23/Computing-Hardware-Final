@@ -5,7 +5,7 @@ from skimage.color import rgb2gray
 from skimage import data, io
 import cv2
 import imutils
-from .emotion_detector import EmotionDetector
+from emotion_detector import EmotionDetector
 
 facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 model = EmotionDetector()
@@ -13,9 +13,9 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 
 class CameraManager:
     def __init__(self):
-        
+
         #TODO: configure camera to have better lighting
-            
+
         self.cam = Picamera2()
 
         #CONFIGURE CAMERA
@@ -36,13 +36,13 @@ class CameraManager:
         '''
         im_gray = rgb2gray(im_orig)  # Convert the original image to a grayscale image
         gray_fr = cv2.cvtColor(im_orig, cv2.COLOR_BGR2GRAY)
-        
+
         img_gray_u8 = img_as_ubyte(
             im_gray)  # Convert greyscale image to an 8-bit unsigned integer so each pixel value ranges from 0-255
         '''
         im_gray = rgb2gray(im_orig)  # Convert the original image to a grayscale image
         gray_fr = cv2.cvtColor(im_orig, cv2.COLOR_BGR2GRAY)
-        
+
         img_gray_u8 = img_as_ubyte(
             im_gray)  # Convert greyscale image to an 8-bit unsigned integer so each pixel value ranges from 0-255
 
@@ -72,7 +72,7 @@ class CameraManager:
         img_final = img_gray_invert.reshape(1, 28, 28, 1)
         return img_resized
         '''
-        
+
     def take_image(self):
         frame = self.cam.capture_array()
         #frame = self.__image_preprocess(frame)

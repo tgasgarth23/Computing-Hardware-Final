@@ -8,7 +8,6 @@ class DataManager:
         self.csv_path = csv_path
 
     def save_to_csv(self, emotions, menu_item):
-
         if not os.path.exists(os.path.dirname(self.csv_path)):
             os.makedirs(os.path.dirname(self.csv_path))
 
