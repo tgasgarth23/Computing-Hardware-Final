@@ -2,10 +2,10 @@ import tkinter as tk
 from tkinter import messagebox
 import cv2
 from PIL import Image, ImageTk
-from utility import get_menu_items
-from camera_manager import CameraManager
-from data_manager import DataManager
-from emotion_detector import EmotionDetector
+from .utility import get_menu_items
+from .camera_manager import CameraManager
+from .data_manager import DataManager
+from .emotion_detector import EmotionDetector
 
 class MenuDisplay(tk.Tk):
     def __init__(self):
