@@ -26,7 +26,7 @@ class CameraManager:
         self.cam.configure("preview")
         #self.cam.start_preview(Preview.QTGL, x=100, y=200, width=800, height=800, transform=Transform(hflip=1))
         self.cam.annotate_text = "Testing testing 123"
-        self.cam.start(show_preview=True)
+        self.cam.start(show_preview=False)
 
     def show_preview(self):
         self.camera_thread = multiprocessing.Process(target=self.cam.start_preview)

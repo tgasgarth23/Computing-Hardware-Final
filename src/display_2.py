@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 import cv2
 from PIL import Image, ImageTk
-import threading
 import utility as utils
 from camera_manager import CameraManager
 from data_manager import DataManager
@@ -91,9 +90,7 @@ class FullscreenListApp(tk.Tk):
         #if not self.cap.isOpened():
             #messagebox.showerror("Error", "Webcam not detected.")
         #    return
-
-        self.camera_thread = threading.Thread(target=self.cam.show_preview)
-        self.camera_thread.start()
+        self.cam.show_preview()
         self.listbox.pack_forget()
         self.feedback_screen.pack(expand=True, fill='both')
         #self.webcam_label.pack(expand=True, fill='both')
@@ -157,7 +154,6 @@ class FullscreenListApp(tk.Tk):
         self.return_to_main_screen()
 
     def return_to_main_screen(self, event = None):
-        self.camera_thread.join()
         self.cam.hide_preview()
         self.feedback_screen.pack_forget()
         self.listbox.pack(expand=True, fill='both')
