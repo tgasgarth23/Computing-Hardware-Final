@@ -1,7 +1,7 @@
 import os
 import csv
 from datetime import datetime
-from .emotion_detector import EmotionDetector
+from emotion_detector import EmotionDetector
 
 class DataManager:
     def __init__(self, csv_path='data/csv/results.csv'):
@@ -15,4 +15,3 @@ class DataManager:
         with open(self.csv_path, mode='a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([datetime.now(), menu_item, emotions])
-
