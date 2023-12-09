@@ -18,8 +18,8 @@ class FullscreenListApp(tk.Tk):
         self.data_manager = DataManager()
 
         # Make the window fullscreen
-        self.attributes("-fullscreen", True)
-        self.geometry("{0}x{1}+0+0".format(self.winfo_screenwidth(), self.winfo_screenheight()))
+        #self.attributes("-fullscreen", True)
+        #self.geometry("{0}x{1}+0+0".format(self.winfo_screenwidth(), self.winfo_screenheight()))
 
         # Title label with larger font size
         title_font_size = 36
