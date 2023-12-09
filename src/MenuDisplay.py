@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import cv2
 from PIL import Image, ImageTk
-import .utility as utils
+from utility import get_menu_items()
 from camera_manager import CameraManager
 from data_manager import DataManager
 from emotion_detector import EmotionDetector
@@ -27,7 +27,7 @@ class MenuDisplay(tk.Tk):
         title_label.pack()
 
         # List of options
-        options = utils.get_menu_items()
+        options = get_menu_items()
 
         # Calculate font size for options
         option_font_size = (self.winfo_screenheight() - title_label.winfo_reqheight()) // len(options) // 2
