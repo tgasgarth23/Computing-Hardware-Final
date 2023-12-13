@@ -39,16 +39,15 @@ class EmotionDetector:
 
     def is_face_happy(self, img, factorize=True):
         emotion = self.get_emotion(img)
-        # print("User is showing emotion: " + emotion)
-        return emotion
-        # if not factorize:
-        #     return True if emotion == "Neutral" or emotion == "Surprise" or emotion == "Happy" else False
+        print("User is showing emotion: " + emotion)
+        if not factorize:
+            return True if emotion == "Neutral" or emotion == "Surprise" or emotion == "Happy" else False
 
-        # preds = self.preds[0]
-        # positive_factor = preds[3] + preds[4] + preds[6]
-        # negative_factor = preds[0] + preds[1] + preds[2] + preds[5]
+        preds = self.preds[0]
+        positive_factor = preds[3] + preds[4] + preds[6]
+        negative_factor = preds[0] + preds[1] + preds[2] + preds[5]
 
-        # return positive_factor > negative_factor
+        return positive_factor > negative_factor
 
 
     def analyze_image(self, img):
@@ -56,7 +55,6 @@ class EmotionDetector:
         faces = self.facec.detectMultiScale(gray_fr, 1.3, 5)
         emotions = []
         for (x, y, w, h) in faces:
-            # print("face detected")
             fc = gray_fr[y:y+h, x:x+w]
             img_final = cv2.resize(fc, (48, 48))[np.newaxis, :, :, np.newaxis]
             plt.clf()

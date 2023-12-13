@@ -17,10 +17,6 @@ class MenuDisplay(tk.Tk):
         self.emotion_analyzer = EmotionDetector()
         self.data_manager = DataManager()
 
-        # Make the window fullscreen
-        #self.attributes("-fullscreen", True)
-        #self.geometry("{0}x{1}+0+0".format(self.winfo_screenwidth(), self.winfo_screenheight()))
-
         # Title label with larger font size
         title_font_size = 36
         title_label = tk.Label(self, text="Select a menu item to review!", font=('Arial', title_font_size))
@@ -122,7 +118,7 @@ class MenuDisplay(tk.Tk):
     def take_picture(self):
         frame = self.cam.take_image()
         emotions = self.emotion_analyzer.analyze_image(frame)
-        
+
         if len(emotions) > 0:
             print(f"You're feeling {emotions} about {self.selected_option}.")
             self.data_manager.save_to_csv(emotions, self.selected_option)

@@ -15,7 +15,6 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 class CameraManager(multiprocessing.Process):
     def __init__(self):
 
-        #TODO: configure camera to have better lighting
         super().__init__()
         self.__cam = Picamera2()
 
