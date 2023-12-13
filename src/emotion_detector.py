@@ -6,6 +6,7 @@ import tensorflow as tf
 import os
 import cv2
 import matplotlib.pyplot as plt
+import time
 
 class EmotionDetector:
 
@@ -61,6 +62,11 @@ class EmotionDetector:
             plt.imshow(img_final[0])
             plt.show()
             emotions.append(self.is_face_happy(img_final))
+        start = time.time()
+        while(time.time() - start < 3):
+            continue
+        plt.clf()
+        plt.close()
         return emotions
 
     def analyze_image_file(self, image_path):
