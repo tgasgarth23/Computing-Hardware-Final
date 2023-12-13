@@ -57,6 +57,7 @@ class EmotionDetector:
             # print("face detected")
             fc = gray_fr[y:y+h, x:x+w]
             img_final = cv2.resize(fc, (48, 48))[np.newaxis, :, :, np.newaxis]
+            plt.clf()
             plt.imshow(img_final[0])
             plt.show()
             emotions.append(self.is_face_happy(img_final))
