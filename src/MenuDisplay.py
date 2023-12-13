@@ -122,11 +122,9 @@ class MenuDisplay(tk.Tk):
     def take_picture(self):
         frame = self.cam.take_image()
         emotions = self.emotion_analyzer.analyze_image(frame)
-        print("Emotions are: ")
-        print(emotions)
-
-        print(self.selected_option)
-        if emotions != []:
+        
+        if len(emotions) > 0:
+            print(f"You're feeling {emotions} about {self.selected_option}.")
             self.data_manager.save_to_csv(emotions, self.selected_option)
             self.return_to_main_screen()
         else:
