@@ -7,6 +7,7 @@ class DataManager:
     def __init__(self, csv_path='data/csv/results.csv'):
         self.csv_path = csv_path
 
+    # Record results to our CSV file
     def save_to_csv(self, emotions, menu_item):
         if not os.path.exists(os.path.dirname(self.csv_path)):
             os.makedirs(os.path.dirname(self.csv_path))

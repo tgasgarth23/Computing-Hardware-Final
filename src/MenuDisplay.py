@@ -12,6 +12,7 @@ class MenuDisplay(tk.Tk):
         super().__init__()
         self.title("Fullscreen List Application")
 
+        # Initialize camera process, set up class objects
         self.cam = CameraManager()
         self.cam.start()
         self.emotion_analyzer = EmotionDetector()
@@ -83,6 +84,7 @@ class MenuDisplay(tk.Tk):
             self.show_feedback_screen()
 
     def show_feedback_screen(self):
+        # Show camera preview and "Take Picture" screen once menu item chosen
         self.cam.show_preview()
         self.listbox.pack_forget()
         self.feedback_screen.pack(expand=True, fill='both')
@@ -115,6 +117,7 @@ class MenuDisplay(tk.Tk):
         elif selected_feedback == 'Cancel Feedback':
             self.return_to_main_screen()
 
+    # Take a picture with the camera and analyze emotions of faces
     def take_picture(self):
         frame = self.cam.take_image()
         emotions = self.emotion_analyzer.analyze_image(frame)
@@ -127,6 +130,7 @@ class MenuDisplay(tk.Tk):
             messagebox.showinfo("Information", "Face not recognized. Please try again!")
 
     def return_to_main_screen(self, event = None):
+        # Go back to Val menu screen, hiding camera preview
         self.cam.hide_preview()
         self.feedback_screen.pack_forget()
         self.listbox.pack(expand=True, fill='both')

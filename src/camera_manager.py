@@ -1,17 +1,10 @@
 from picamera2 import Picamera2, Preview
-from libcamera import Transform
-from skimage import img_as_ubyte
-from skimage.color import rgb2gray
-from skimage import data, io
 import cv2
-import imutils
 from .emotion_detector import EmotionDetector
 import multiprocessing
 
-facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-model = EmotionDetector()
-font = cv2.FONT_HERSHEY_SIMPLEX
-
+# We multiprocess the camera to improve performance
+# It also prevents conflicts between TKinter and the camera preview
 class CameraManager(multiprocessing.Process):
     def __init__(self):
 

@@ -3,7 +3,7 @@ import src.utility as utils
 import cv2
 
 def main():
-    # Create and run the application
+    # Initialize menu and run application
     app = MenuDisplay()
     app.mainloop()
 
