@@ -26,8 +26,12 @@ class MenuDisplay(tk.Tk):
         # List of options
         options = get_menu_items()
 
+        # If menu not found for this day, indicate an error
+        if len(options) == 0:
+            messagebox.showinfo("Error", "Menu not found for today's date!")
+
         # Calculate font size for options
-        option_font_size = 20 if len(options) == 0 else (self.winfo_screenheight() - title_label.winfo_reqheight()) // len(options) // 2
+        option_font_size = float('inf') if len(options) == 0 else (self.winfo_screenheight() - title_label.winfo_reqheight()) // len(options) // 2
         option_font_size = min(option_font_size, title_font_size - 4)
 
         # Create a listbox to display the options
