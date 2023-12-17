@@ -27,7 +27,7 @@ class MenuDisplay(tk.Tk):
         options = get_menu_items()
 
         # Calculate font size for options
-        option_font_size = (self.winfo_screenheight() - title_label.winfo_reqheight()) // len(options) // 2
+        option_font_size = 20 if len(options) == 0 else (self.winfo_screenheight() - title_label.winfo_reqheight()) // len(options) // 2
         option_font_size = min(option_font_size, title_font_size - 4)
 
         # Create a listbox to display the options
